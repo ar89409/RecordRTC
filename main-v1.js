@@ -16,10 +16,14 @@ function successCallBack(stream) {
 			console.log(recordedBlob);
 			var reader = new FileReader();
 			reader.addEventListener("loadend", function() {
-				console.log(reader.result);
-				var uint8array = new Uint8Array(reader.result);
-				var string = new TextDecoder("ascii").decode(uint8array);
-				console.log(string);
+				var uint8 = new Uint8Array(reader.result);
+				var n_uint8 = uint8.subarray(0,200);
+				var n_str = "";
+				for (var i = 0; i < n_uint8.length; i++) {
+					var ch = String.fromCharCode(n_uint8[i]);
+					n_str = n_str.concat(ch);
+				}
+				console.log(n_str);
 			});
 			reader.readAsArrayBuffer(recordedBlob);
 		});
